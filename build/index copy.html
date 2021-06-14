@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="aframe-ar-nft.js"></script>
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <script type='text/javascript'>
+     
+     
+
+
+      AFRAME.registerComponent('peakfinder', {
+            init: function() {
+                this.loaded = false;
+                window.addEventListener('gps-camera-update-position', e => {
+                    if(this.loaded === false) {
+                       if (navigator.geolocation) {
+                          navigator.geolocation.getCurrentPosition(this._loadPeaks);
+                        this.loaded = true;
+                        }
+                    }
+                });
+            },
+            _loadPeaks: function(position) {
+                  var latitude = position.coords.latitude + 0.0002;//-11.011074;
+                  var longitude = position.coords.longitude + 0.0002;// -37.091301;
+                  console.log('latitude Original:' + position.coords.latitude);
+                  console.log('longitude Original:' + position.coords.longitude);
+                  /*
+                    latitude Original:-11.011292
+                    longitude Original:-37.0911578
+                  */
+  
+                  console.log('latitude:' + latitude);
+                  console.log('longitude:' + longitude);
+                  const scale = 10;                
+                  var entity = document.querySelector("a-entity");
+                  // const entity = document.createElement('a-entity');
+                  entity.setAttribute('look-at', '[gps-camera]');
+                  // entity.setAttribute('value', 'Encontrou?');
+                  entity.setAttribute('scale', {
+                      x: scale,
+                      y: scale,
+                      z: scale
+                  });
+                  entity.setAttribute('gps-entity-place', {
+                      latitude: latitude,
+                      longitude: longitude
+                  });
+                  // entity.setAttribute("gltf-model", "https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf");
+  /*
+   <a-assets>
+       <img id="transpImage" src="http://www.icone-png.com/png/13/13081.png">
+   </a-assets>
+  
+  */
+                  // document.querySelector("a-scene").appendChild(entity);
+          
+              }
+        });
+        
+      </script>
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <a-scene
+      vr-mode-ui="enabled: false"
+      embedded
+      arjs="sourceType: webcam; debugUIEnabled: false;"
+    >     
+    <a-assets>
+      <img id="transpImage" crossorigin="anonymous" src="https://192.168.15.3:5500/LOGO-ILHA.png">
+    </a-assets>  
+    
+
+    <a-entity peakfinder>
+        
+      <a-image width="1" height="1" src="#transpImage"></a-image>
+    </a-entity>
+      <a-camera gps-camera rotation-reader look-controls-enabled='false' arjs-look-controls='smoothingFactor: 1' gps-camera='gpsMinDistance: 1'> </a-camera>      
+    </a-scene>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>

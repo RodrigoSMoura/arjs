@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Scene, Entity, Image, Camera } from 'react-aframe-ar';
+import { Scene, Entity, Image } from 'react-aframe-ar';
 import { PointService } from './services/PointService'
 
 const service = PointService();
@@ -7,23 +7,20 @@ const service = PointService();
 function EntityLocalization({ peakFinderKey, scale, latitude, longitude, imgSrc }) {
 
   useEffect(() => {
-    var registerComponent = window.AFRAME.registerComponent(`peakfinder='${peakFinderKey}'`, {
+    window.AFRAME.registerComponent(`peakfinder='${peakFinderKey}'`, {
       init: function () {
         this.el.addEventListener("mouseup", (e) => {
           e.preventDefault();
           console.log(`HELLO`)
-          // window.open("https://google.com.br", "_blank");
         })
       },
 
       remove: function(){
-        // this.el.removeEventListener("mouseup");
         console.log("removido");
       }
     })
 
     return () => {
-      // registerComponent.prototype.remove();
       delete window.AFRAME.components[`peakfinder='${peakFinderKey}'`]
       console.log("EntityLocalization removido");
     }
@@ -37,43 +34,13 @@ function EntityLocalization({ peakFinderKey, scale, latitude, longitude, imgSrc 
 }
 
 function ArApp() {
-  // var entitiesList = React.useRef([]);
   const entitiesList = React.useRef([]);
   const [entitites, setEntities] = React.useState([]);
   const [scale, setScale] = React.useState(5);
-  const [forceUpdate, setForceUpdate] = React.useState([]);
 
   useEffect(() => {
     setScale(5);
-    // const i_id = setInterval(()=> { 
-      // service.GetPoints().then((points) => {
-      //   console.log("Points: ")
-      //   console.log(points)
-      //    //  var points = [{
-      //    //    id: 2,
-      //    //    imageUrl: "https://raw.githubusercontent.com/RodrigoSMoura/ARjsTests/main/docs/LOGO-ILHA.png",
-      //    //    latitude: "-11.0111058",
-      //    //    linkUrl: "https://www.instagram.com/ilhaenterprise/",
-      //    //    longitude: "-37.0909365",
-      //    //    name: "Ilha 2",
-      //    //  }]
-          
-      //    //  console.log("Dados: ")
-      //    //  console.log(dados)
-      //     if (points) {
-      //        var actualPoints = JSON.parse(window.localStorage.getItem('points'));
-      //        if (!actualPoints) actualPoints = [];
-      //          actualPoints = [...actualPoints, ...points.filter(p => !actualPoints.length || actualPoints.find(r => r.id !== p.id))];
-      //        window.localStorage.setItem('points', JSON.stringify(actualPoints));
-
-      //       //  if (points.filter(p => !actualPoints.length || actualPoints.find(r => r.id !== p.id)).length)
-      //       // entitiesList.current = actualPoints;
-      //       // setForceUpdate(forceUpdate => forceUpdate = actualPoints) 
-      //     }
-      // });
-    // const i_id = setInterval(()=> { 
       Chama();
-    // }, 5000);
 
     const i_id = service.RegisterChange(() => {
       Chama();
@@ -89,30 +56,26 @@ function ArApp() {
     alert(entitiesList);
   }, [entitiesList]);
 
-  // useEffect(()=> {
-
   function Chama(){
     var points = JSON.parse(window.localStorage.getItem('points'));
     try{
-    if (points && points.length){   
-      var novosPoints = points.filter(p => entitites.find(e => e.key !== p.id) === undefined);
-    if (novosPoints.length){
-        setEntities([
-              ...entitites,
-              ...novosPoints.map((p) => 
-            <EntityLocalization key={p.id} peakFinderKey={`peakfinder-${p.id}`} scale={scale} latitude={p.latitude} longitude={p.longitude} imgSrc={p.imageUrl}></EntityLocalization>
-            )
-          ]);
-        }
-      }
+      setEntities([
+          ...points.map((p) => 
+        <EntityLocalization key={p.id} peakFinderKey={`peakfinder-${p.id}`} scale={scale} latitude={p.latitude} longitude={p.longitude} imgSrc={p.imageUrl}></EntityLocalization>
+        )
+      ]);
+    // if (points && points.length){   
+    //   var novosPoints = points.filter(p => entitites.find(e => e.key !== p.id) === undefined);
+    // if (novosPoints.length){
+    //     setEntities([
+    //           ...points.map((p) => 
+    //         <EntityLocalization key={p.id} peakFinderKey={`peakfinder-${p.id}`} scale={scale} latitude={p.latitude} longitude={p.longitude} imgSrc={p.imageUrl}></EntityLocalization>
+    //         )
+    //       ]);
+    //     }
+    //   }
     }catch(err){console.log(err)}    
   }
-  // },[forceUpdate])
-
-  // useEffect(()=>{
-  //   if (entitiesList.length)
-    
-  // },[entitiesList])
 
   return (
     <Scene

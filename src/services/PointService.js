@@ -57,10 +57,10 @@ function PointService(){
         GetPoints().then((result => {
             console.log(result);
             if (result) {
-                var actualPoints = JSON.parse(window.localStorage.getItem('points'));
-                if (!actualPoints) actualPoints = [];
-                    actualPoints = actualPoints.concat(result.filter(function(p) {return this.find(e => e.id === p.id) === undefined}, actualPoints));
-                window.localStorage.setItem('points', JSON.stringify(actualPoints));
+                // var actualPoints = JSON.parse(window.localStorage.getItem('points'));
+                // if (!actualPoints) actualPoints = [];
+                //     actualPoints = actualPoints.concat(result.filter(function(p) {return this.find(e => e.id === p.id) === undefined}, actualPoints));
+                window.localStorage.setItem('points', JSON.stringify(result));
 
                 console.log("vou chamar")
                 callbackFunction();

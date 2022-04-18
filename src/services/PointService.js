@@ -2,14 +2,16 @@ import firebase from "firebase/app"
 import "firebase/database"
 import uuid from 'react-uuid'
 
+// Todo: Inserir dados Firebase (ou alterar serviço para utilização de outra base de dados)
+
 const firebaseConfig = {
-    apiKey: "AIzaSyBvC4MySbJ4bhRs7BubZXMvNnFqpbboy4A",
-    authDomain: "arjs-acc1c.firebaseapp.com",
-    databaseURL: "https://arjs-acc1c-default-rtdb.firebaseio.com",
-    projectId: "arjs-acc1c",
-    storageBucket: "arjs-acc1c.appspot.com",
-    messagingSenderId: "382924732548",
-    appId: "1:382924732548:web:1adf43cc774a02cff1ead1"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
   };
 
 function Initialize(){
@@ -34,7 +36,7 @@ function PointService(){
         }).catch((err)=> {
             result = [{
               id: 2,
-              imageUrl: "https://raw.githubusercontent.com/RodrigoSMoura/ARjsTests/main/docs/LOGO-ILHA.png",
+              imageUrl: "",
               latitude: "-11.0111058",
               linkUrl: "https://www.instagram.com/ilhaenterprise/",
               longitude: "-37.0909365",

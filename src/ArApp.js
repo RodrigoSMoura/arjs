@@ -85,7 +85,7 @@ function ArApp() {
       arjs="sourceType: webcam; debugUIEnabled: false;"
     >
       {entitites}
-      <Entity camera gps-camera rotation-reader look-controls-enabled='true' arjs-look-controls='smoothingFactor: 1' gps-camera='gpsMinDistance: 5'>
+      <Entity camera gps-camera rotation-reader look-controls-enabled='true' arjs-look-controls='smoothingFactor: 1'>
         <Entity cursor="fuse: false"
           position="0 0 -1"
           geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.01"> </Entity> </Entity>

@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
-import ArApp from './ArApp';
+// import ArApp from './ArApp';
+import ManagePoints from './ManagePoints';
 
 // import {
 //   BrowserRouter as Router,
@@ -12,8 +13,8 @@ import ArApp from './ArApp';
 function App() {
   
   return (
-    // <ManagePoints/>
-    <ArApp />
+    <ManagePoints/>
+    // <ArApp />
     // <Router>
     //   <header className="d-flex justify-content-center py-3">
     //   <ul className="nav nav-pills">

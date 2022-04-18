@@ -28,7 +28,7 @@ function PointService(){
         await ref.get().then((r) => {
             r.forEach((child)=>{
                 var point = child.val();
-                // child.id = child.key;
+                point.id = child.key;
                 result.push(point);
             })
         }).catch((err)=> {
@@ -60,10 +60,11 @@ function PointService(){
                 // var actualPoints = JSON.parse(window.localStorage.getItem('points'));
                 // if (!actualPoints) actualPoints = [];
                 //     actualPoints = actualPoints.concat(result.filter(function(p) {return this.find(e => e.id === p.id) === undefined}, actualPoints));
+
                 window.localStorage.setItem('points', JSON.stringify(result));
 
                 console.log("vou chamar")
-                callbackFunction();
+                callbackFunction(result);
                 console.log("chamei")
             }
         }));
@@ -79,13 +80,19 @@ function PointService(){
         console.log(newPoint.toString())
     }
 
+    function RemovePoint(pointId){
+        ref.child(pointId).remove().then(() => {
+            console.log("removido");
+        }).catch((e) => console.log(e));
+    }
+
     function CancelToken(i_id){
         cancellationToken = true;
         if (i_id) clearInterval(i_id);
     }
     
     return {
-        GetPoints, RegisterChange, InsertPoint,
+        GetPoints, RegisterChange, InsertPoint, RemovePoint,
         CancelToken
     }
 }

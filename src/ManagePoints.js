@@ -181,27 +181,7 @@ function ManagePoints(){
         const files = Array.from(e.target.files)
         console.log("files");
         console.log(e.target.files[0]);
-        setImageFile(files[0]);
-        // ImageUpload(e.target.files[0]);
-        // this.setState({ uploading: true })
-    
-        // const formData = new FormData()
-    
-        // files.forEach((file, i) => {
-        //   formData.append(i, file)
-        // })
-    
-        // fetch(`${API_URL}/image-upload`, {
-        //   method: 'POST',
-        //   body: formData
-        // })
-        // .then(res => res.json())
-        // .then(images => {
-        //   this.setState({ 
-        //     uploading: false,
-        //     images
-        //   })
-        // })
+        setImageFile(files[0]);        
       }
     
 
@@ -340,6 +320,9 @@ function ManagePoints(){
                         <th scope="col">
                             ImageUrl
                         </th>
+                        <th scole="col">
+
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -349,7 +332,8 @@ function ManagePoints(){
                             <td>{p.name}</td> 
                             <td>{p.latitude}</td> 
                             <td>{p.longitude}</td> 
-                            <td><img src={p.imageUrl} className="img-fluid" /></td> 
+                            <td><img src={p.imageUrl} width="50px" className="img-fluid" /></td> 
+                            <td><button type="button" className="btn btn-danger" onClick={() => {service.RemovePoint(p.id); UpdatePointsList()}} >Remover</button></td>
                         </tr>
                     )}
                 </tbody>

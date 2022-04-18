@@ -13,8 +13,8 @@ import ManagePoints from './ManagePoints';
 function App() {
   
   return (
-    <ManagePoints/>
-    // <ArApp />
+    // <ManagePoints/>
+    <ArApp />
     // <Router>
     //   <header className="d-flex justify-content-center py-3">
     //   <ul className="nav nav-pills">

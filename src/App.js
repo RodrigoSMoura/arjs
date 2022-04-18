@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
-// import ArApp from './ArApp';
-import ManagePoints from './ManagePoints';
+import ArApp from './ArApp';
+//import ManagePoints from './ManagePoints';
 
 // import {
 //   BrowserRouter as Router,
